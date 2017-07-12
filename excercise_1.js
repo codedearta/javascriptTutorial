@@ -96,3 +96,57 @@ console.log(baby);
 console.log(`firstName is ${baby.firstName}`);
 console.log(baby.middleName);
 baby.printParents();
+
+
+// Funtionen: Es gibt unterschiedliche Arten eine Funktion zu definierne.
+
+// Art 1
+const add = function (a, b) {
+  return a + b;
+}
+
+// aufgerufen wird die Funktion folgendermassen
+const result = add(1,2);
+console.log('result is:', result);
+
+// oder direkt ausdrucken
+console.log('result is:', add(4,5));
+
+
+// Art 2 (global definert)
+function multiply(a, b) {
+  return a * b;
+}
+
+// aufgerufen wird die funtion genau gleich
+const multiplyResult = multiply(2,5);
+console.log('multiply result is:', multiplyResult);
+
+// Art 3 als Lambda (modern) single expression Funktion
+const divide = (a, b) => a / b;
+
+// Art 3 als Lambda multiline expression
+const divideSave = (a, b) => {
+  if(b === 0) {
+    throw 'division by zero'
+  } else if(Number.isFinite(a) && Number.isFinite(b)) {
+    return a / b;
+  } else {
+    throw 'can''t devide ' + a + ' and ' + b
+  }
+}
+
+// aufgerufen wird die funtion genau gleich
+const divideResult = divide(2,5);
+console.log('divide result is:', divideResult);
+
+console.log(divideSave('hallo', 0));
+
+// Lambdas sind praktisch wenn man sie inline verwendet, sie koennen anderen Funktionen ubergeben werden.
+const delegatorPrint = function(lambda) {
+  return console.log(lambda());
+}
+
+delegatorPrint(() => 'ich bin eine Lambdafunktion ;-)');
+
+delegatorPrint(() => 'Pi ist: ' + Math.PI);
