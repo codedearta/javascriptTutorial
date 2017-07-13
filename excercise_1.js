@@ -98,23 +98,25 @@ console.log(baby.middleName);
 baby.printParents();
 
 
-// Funtionen: Es gibt unterschiedliche Arten eine Funktion zu definierne.
+// Funtionen: Es gibt 3 unterschiedliche Arten eine Funktion zu definierne. Weitere folgen...
 
 // Art 1
 const add = function (a, b) {
   return a + b;
 }
 
-// aufgerufen wird die Funktion folgendermassen
+// aufgerufen (oder funktion ausfuehren) wird die Funktion folgendermassen
 const result = add(1,2);
-console.log('result is:', result);
+console.log('result is:', result); //console log nimmt mehrere Pararmeter und printet alle aus.
+console.log(`result is: ${result}`); // gleich wie obenb aber nur andere syntax
 
 // oder direkt ausdrucken
-console.log('result is:', add(4,5));
+console.log('result is:', add(4,5)); // oder ohne var. resulte var.uebergabe und direkt ausdrucken
+console.log(add(5,3))
 
 
 // Art 2 (global definert)
-function multiply(a, b) {
+function multiply(a, b) { // oder nach Art 1 -> const multiply = function (a,b)...
   return a * b;
 }
 
@@ -123,7 +125,7 @@ const multiplyResult = multiply(2,5);
 console.log('multiply result is:', multiplyResult);
 
 // Art 3 als Lambda (modern) single expression Funktion
-const divide = (a, b) => a / b;
+const divide = (a, b) => a / b; // => ersetzt  function...{return...}
 
 // Art 3 als Lambda multiline expression
 const divideSave = (a, b) => {
