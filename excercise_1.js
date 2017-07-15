@@ -87,7 +87,7 @@ const baby = {
                                     // new ist ein schluesselwort um neue Objekte zu kreieren. Date ist ein klasse/datentyp
   parents: ['My-Yen', 'Sepp'],
   printParents: function() {    // printParents ist eine Funktion auf dem Objekt, die eigentliche Funktion ist 'function ()', hier ohne Parameter.
-    this.parents.forEach(p => console.log(p));
+    this.parents.forEach(p => console.log(p)); // 'this' weist auf ein element innerhalb des Ocjekts oder funktion hin.
   }
 }
 
