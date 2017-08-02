@@ -68,6 +68,7 @@ if(namenTest[0] === 'Nyla') {
 let actualName = ''; // leere string. Var def ist ausserhalb von while-construct (ungleich for-construct)
 while(actualName !== 'Sepp') {  // ungleichheit (bzw. 'nicht') wird in Javascript mit !== geprueft.
   actualName = namenTest.shift(); // shift() entfernt das erste element von einem array und gibt den wert zurueck bzw. gibt den wert hier rein.
+                                  // am Ende ist Variable namenTest leer.
   console.log('actual name is: ' + actualName);
 }
 
@@ -87,10 +88,8 @@ const baby = {
                                     // new ist ein schluesselwort um neue Objekte zu kreieren. Date ist ein klasse/datentyp
   parents: ['My-Yen', 'Sepp'],
   printParents: function() {    // printParents ist eine Funktion auf dem Objekt, die eigentliche Funktion ist 'function ()', hier ohne Parameter.
-    this.parents.forEach(p => console.log(p)); // 'this' weist auf ein element innerhalb des Ocjekts oder funktion hin.
-  }
-}
-
+    this.parents.forEach(p => console.log(p)); // 'this' weist auf ein element innerhalb des Objekts oder funktion hin.
+  }}
 
 console.log(baby);
 console.log(`firstName is ${baby.firstName}`);
