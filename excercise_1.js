@@ -157,14 +157,12 @@ delegatorPrint(() => 'ich bin eine Lambdafunktion ;-)'); // aufruf der funktion.
 delegatorPrint(() => 'Pi ist: ' + Math.PI); // Math ist ein Hilfsobjekt fuer math. Konstante und Funktionen
 // Math.PI ist eine fixe Konstante und keine funktion, deshalb keine ()
 
-
+//split()
 const buchstabenArray = 'Hallo My-Yen'.split(''); // gibt ['H', 'a'...]
 const woerterArray = 'Hallo My-Yen'.split(' '); // gibt ['Hallo','My-Yen']
-const listenArray = '1,2,3,4,5,6,Banane'.split(',') // gibt
-const listenArray2 = '1;2;3;4;5;6;Banane'.split(';') // gibt
-
+const listenArray = '1,2,3,4,5,6,Banane'.split(','); // gibt [ '1', '2', '3', '4', '5', '6', 'Banane' ]
+const listenArray2 = '1;2;3;4;5;6;Banane'.split(';'); // gibt [ '1', '2', '3', '4', '5', '6', 'Banane' ]
 
 // join()
-
-const einString = ['H','a','l','l','o'].join();
-const einAndererString = ['H','a','l','l','o'].join(',');
+const einString = ['H','a','l','l','o'].join(''); // gibt 'Hallo'
+const einAndererString = ['H','a','l','l','o'].join(','); //gibt 'H,a,l,l,o' (nimm alles zwischen '' und kommas)
