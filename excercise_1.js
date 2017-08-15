@@ -132,7 +132,7 @@ const divideSave = (a, b) => {
     throw 'division by zero'; // throw ruft einen Fehler hervor und bricht ab. Kommentare kommt auch
   } else if(Number.isFinite(a) && Number.isFinite(b))  /* Number ist ein Objekt wie console.
                                                     Number.isFinite(a) ueberprueft ob a eine endliche numer ist.
-                                                    && ist mathematische Verknuepfung */
+                                                    && ist mathematische Verknuepfung (logical operator)*/
   {
     return a / b;
   } else {
