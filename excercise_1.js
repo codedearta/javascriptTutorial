@@ -34,6 +34,12 @@ const namen = ['Nyla', 'My-Yen', 'Sepp'];
 for (let i = 0; i < namen.length; i++) {
     console.log(namen[i]);
 }
+/*
+for loop backwards: for (let i = namen.length -1; i >=0 ; i--) {...}
+nested loop: compare two arrays to see if any of the items match.
+The big idea is that we can run a for loop inside another for loop to compare the items in two arrays.
+Every time the outer for loop runs once, the inner for loop will run completely.
+for loop for loop if  */
 
 // Das ist ein bisschen old-school. In modenernem Javascript koennen wir die array-funktion forEach verwenden
 namen.forEach(name => console.log(name));
@@ -44,6 +50,7 @@ if(globalerNonsens === 'Donald Trump') { // Um Werte zu vergleichen wird in Java
   console.log(`Americas president is ${globalerNonsens}`);
   // rueckwaertsgerichtete Anfuehrungszeichen werden fuer template strings verwendet, dies ist gut um strings zusammenzusetzen.
   // mit ${variablennamen} wird die platzhalter variable definiert
+  // heisst auch string interpolation
 } else {
   console.log('The World is alright :-)');
 }
@@ -52,6 +59,20 @@ if(globalerNonsens === 'Donald Trump') { // Um Werte zu vergleichen wird in Java
 if(globalerNonsens === 'Donald Trump'){
   console.log(`Americas president is ${globalerNonsens}`);
 }
+/* falls nach if vergleich nur die var alleine steht, dann wird die Truthliness der var. überprüft.
+dies ist immer truthly wenn die var. besteht.
+Ausnahmen sind, wenn var auf folgenden gesetzt ist:
+false
+0 and -0
+"" and '' (empty strings)
+null
+undefined
+NaN (Not a Number)
+document.all (something you will rarely encounter)
+*/
+
+//To say "both must be true," we use &&. To say "either can be true," we use ||.
+
 
 let namenTest = ['My-Yen', 'Nyla', 'Sepp'];
 if(namenTest[0] === 'Nyla') {
@@ -63,6 +84,26 @@ if(namenTest[0] === 'Nyla') {
   // else kommt am Schluss, muss aber nicht zwingend definiert werden
   console.log('Sepp is probabely first.');
 }
+//switch statement ist wie viele else if
+let groceryItem = 'papaya';
+switch (groceryItem) {
+  case 'tomato':
+    console.log('Tomatoes are $0.49');
+    break;
+  case 'lime':
+    console.log('Limes are $1.49');
+    break;
+  case 'papaya':
+    console.log('Papayas are $1.29');
+    break;
+  default:
+    console.log('Invalid item');
+    break;
+}
+//This keyword break will prevent the switch statement from executing any more of its code.
+
+//ternary operator oder auch shorthand of if else
+isNightTime ? console.log('Turn on the lights!') : console.log('Turn off the lights!');
 
 // while loop
 let actualName = ''; // leere string. Var def ist ausserhalb von while-construct (ungleich for-construct)
@@ -89,7 +130,14 @@ const baby = {
   parents: ['My-Yen', 'Sepp'],
   printParents: function() {    // printParents ist eine Funktion auf dem Objekt, die eigentliche Funktion ist 'function ()', hier ohne Parameter.
     this.parents.forEach(p => console.log(p)); // 'this' weist auf ein element innerhalb des Objekts oder funktion hin.
+
+    sayHello: () => {
+     return 'Hello, there!'} // function im Objekt.
+    sayHello() {
+     return 'Hello, there!'} // wie oben aber andere schreibweise.
   }}
+  // acces data in a Object by dot zB. baby.lastName oder by [], mit baby[...] wird die Var. gesucht oder baby['...'] den key.
+  // adding or verädern key and value zb. baby.age = 12 oder baby['age'] = 12
 
 console.log(baby);
 console.log(`firstName is ${baby.firstName}`);
@@ -99,7 +147,7 @@ baby.printParents();
 
 // Funtionen: Es gibt 3 unterschiedliche Arten eine Funktion zu definierne. Weitere folgen...
 
-// Art 1
+// Art 1, auch function expression genannt
 const add = function (a, b) {
   return a + b;
 }
@@ -114,7 +162,7 @@ console.log('result is:', add(4,5)); // oder ohne var. resulte var.uebergabe und
 console.log(add(5,3))
 
 
-// Art 2 (global definert)
+// Art 2 (global definert), function declaration
 function multiply(a, b) { // oder nach Art 1 -> const multiply = function (a,b)...
   return a * b;
 }
@@ -123,8 +171,9 @@ function multiply(a, b) { // oder nach Art 1 -> const multiply = function (a,b).
 const multiplyResult = multiply(2,5);
 console.log('multiply result is:', multiplyResult);
 
-// Art 3 als Lambda (modern) single expression Funktion
-const divide = (a, b) => a / b; // => ersetzt  function...{return...}
+// Art 3 als Lambda (modern) single expression Funktion, heisst auch arrow function syntax const name = () => {...}
+const divide = (a, b) => a / b; // => ersetzt  function...{return...}, implicit return da drin, single line brauch auch keine {}, keine return, und wenn nur ein Parameter dann kann auf () verzichtet werden
+divide(); // hier wird die funktion aufgerufen und ausgefuehrt
 
 // Art 3 als Lambda multiline expression
 const divideSave = (a, b) => {
@@ -166,3 +215,15 @@ const listenArray2 = '1;2;3;4;5;6;Banane'.split(';'); // gibt [ '1', '2', '3', '
 // join()
 const einString = ['H','a','l','l','o'].join(''); // gibt 'Hallo'
 const einAndererString = ['H','a','l','l','o'].join(','); //gibt 'H,a,l,l,o' (nimm alles zwischen '' und kommas)
+
+/* array methode:
+.length
+.push  -> hängt weitere items am Ende an
+.pop  -> löscht das letzte element
+.shift() -> removes the first element from an array and returns that element
+.unshift() -> setzt neue items am anfang ein
+.slice(begin,end) -> make copy of a portion of an array into a new array object
+.join(), .splice(), and .concat()
+*/
+
+// sehr wichtige array built in function : .forEach, .map, .filter, .some, .every, .reduce
