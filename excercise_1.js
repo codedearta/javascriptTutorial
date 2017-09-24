@@ -227,3 +227,25 @@ const einAndererString = ['H','a','l','l','o'].join(','); //gibt 'H,a,l,l,o' (ni
 */
 
 // sehr wichtige array built in function : .forEach, .map, .filter, .some, .every, .reduce
+
+// Module exportieren und importieren
+let Airplane {
+  myAirplane: "StarJet",
+};
+module.exports = Airplane; // das Objekt wird als module exportiert. nur ein module pro file zulässig.
+export default Airplane; // gleich wie oben nur andere syntax ES6
+
+const AirplaneImp = require('./airplane.js'); // für module importieren in a new file, es macht eine invisible copy
+import AirplaneImp from ',/airplane.js'; // gleich wie oben, syntax ES6
+
+//export von Variable
+let specialty = '';
+function isVegetarian() {
+};
+function isLowSodium() {
+};
+export { specialty, isVegetarian };
+import { specialty, isVegetarian } from './menu'; // hier wird importiert
+
+// named exports
+export let specialty = ''; // wird exportiert sobald die Variable definiert ist.
