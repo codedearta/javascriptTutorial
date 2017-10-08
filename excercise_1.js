@@ -228,7 +228,7 @@ const einAndererString = ['H','a','l','l','o'].join(','); //gibt 'H,a,l,l,o' (ni
 
 // sehr wichtige array built in function : .forEach, .map, .filter, .some, .every, .reduce
 
-// Module exportieren und importieren
+// IMPOTIEREN UND EXORTIEREN von Module (Modules in JavaScript are reusable pieces of code that can be exported from one program and imported for use in another program)
 let Airplane {
   myAirplane: "StarJet",
 };
@@ -236,16 +236,45 @@ module.exports = Airplane; // das Objekt wird als module exportiert. nur ein mod
 export default Airplane; // gleich wie oben nur andere syntax ES6
 
 const AirplaneImp = require('./airplane.js'); // für module importieren in a new file, es macht eine invisible copy
-import AirplaneImp from ',/airplane.js'; // gleich wie oben, syntax ES6
+import AirplaneImp from './airplane.js'; // gleich wie oben, syntax ES6
 
-//export von Variable
+//export von Variable, mehrere export in einem file möglich
 let specialty = '';
 function isVegetarian() {
 };
 function isLowSodium() {
 };
-export { specialty, isVegetarian };
-import { specialty, isVegetarian } from './menu'; // hier wird importiert
+export { specialty, isVegetarian as isVeg}; // alias export mit as
+import { specialty, isVeg, isLowSodium as lowSod } from './menu'; // hier wird importiert, beim imortierten kann aus alias erzeugt werden
+// import entire module with alias
+import * as Carte from './menu';
 
 // named exports
-export let specialty = ''; // wird exportiert sobald die Variable definiert ist.
+export let specialty = ''; // wird exportiert sobald die Variable definiert ist. Mehrere export in einem file möglich
+import { specialty} from './menu'; // wie oben
+
+//XHR GET Requests (coilerplate code)
+const xhr = new XMLHttpRequest(); // new operator bzw. new object, write 'new' for new object and then the type (not the naming), naming xhr is common practise
+const url = 'http://api-to-call-com/endpoint'; // URL to which we are going to make our request
+xhr.responseType = 'json'; // access the properties of the const xhr object and set the response type, can be another as well
+xhr.onreadystatechange = function() {    // event handler
+  if (xhr.readyState === XMLHttpRequest.DONE) {
+    console.log(xhr.response);
+  }
+};
+xhr.open('GET', url);  // opens request by calling the method .open() and pass two parameter - type of request and url to querying.
+xhr.send();          // sends object
+
+// POST
+const xhr = new XMLHttpRequest();
+const url = 'http://api-to-call.com/endpoint';
+const data = JSON.stringify({ id: '200'});  // concerts data to a string
+
+xhr.responseType = 'json';
+xhr.onreadystatechange = function() {           //handles response
+  if (xhr.readyState === XMLHttpRequest.DONE) {
+    console.log(xhr.response);
+  }
+};
+xhr.open('POST', url);
+xhr.send(data);
