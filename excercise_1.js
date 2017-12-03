@@ -341,7 +341,7 @@ feste Order von Parameter.
 
 // ES6
 // Promise is an object, acts as a placeholder for data that has been requested but not yet received.
-// fetch() function uses Primises to handle request. .then() method handle fullfiled and rejected Promises. async and await keywords.
+// fetch() function uses Promises to handle request. .then() method handle fullfiled and rejected Promises. async and await keywords.
 
 //fetch GET, fetch() function; this is a web API not all browsers support it. in that case add a polyfill
 //fetch is besser als jQuery, da fetch bild-in im Browser ist (native)
@@ -355,8 +355,9 @@ fetch('https://api-to-call.com/endpoint').then(response => {  // sends request
   //Code to execute with jsonResponse
 });
 // we call the response function when it has been received.
-// ).then() ist callback
+// .then() ist callback, then() handles Promises returned by fetch.
 // Aufbau: fetch() chained by .then() method which takes two callback functions as arguments (one for success, one for failure) and an additional .then() method that returns a JSON abject from the resolved Promise.
+// .json() method coverts a returned Promise to a Json Object.
 
 //fetch POST
 fetch('https://api-to-call.com/endpoint', { // diese und die naechten 2 Zeilen sends request
@@ -371,3 +372,42 @@ fetch('https://api-to-call.com/endpoint', { // diese und die naechten 2 Zeilen s
 ).then(jsonRespnse => {               // diese und 2 weitere Zeile handles success
 //Code to execute with jsonResponse
 });
+
+//async await GET request, async und await is ES7, not supported by all browser, so to transpile the Code
+async function getData() {    // async function that will return a Promise
+  try {
+    let response = await fetch('https://api-to-call.com/endpoint'); //send request, await the returned Promise
+    if (response.ok) {                            // diese und 3 weiteren Zeilen handle response if successful
+      let jsonResponse = await response.json();
+      // Code to execute with jsonResponse z.b. return jsonResponse
+    } //else
+    throw new Error('Request failed!');           // // diese und 3 weiteren Zeilen handle response if unsuccessful
+  } catch (error) {
+    console.log(error);
+  }
+}
+// We use a try/catch statement to separate the code that will handle success from the code that will handle errors.
+// inside try () is a fetch (). fetch() function creates a request object and returns a Promise that will ultimately resolve to a response object.
+
+// async await POST
+async function getData() {    // use async keyword to create a getData() function, async create a function that will return a Promise
+  try {
+    let response = await fetch('https://api-to-call.com/endpoint', {   //diese und 3 weiteren Zeilen send request
+      method: 'POST',
+      body: JSON.stringify({ id: '200'})
+    });
+    if (response.ok) {                            // diese und 3 weiteren Zeilen handle response if successful
+      let jsonResponse = await response.json();
+      // Code to execute with jsonResponse
+    }
+    throw new Error('Request failed!');           // // diese und 3 weiteren Zeilen handle response if unsuccessful
+  } catch (error) {
+    console.log(error);
+  }
+}
+// fetch() function send a request to the URL. And we pass a settings object as an argutemnt to the fetch function
+// async is a keyword that us used to create function that returns Promises.
+// await keyword -> wait for the resolution of the Promise, when it happend the object will save to a variable response.
+// await is a keyword that is used to tell a program to continue moving through the message queue while a Promise resolves.
+// await can only be used within functions declared with async.
+// -> END of Introduction of JavaScript in codecademy.
