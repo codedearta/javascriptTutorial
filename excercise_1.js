@@ -285,7 +285,7 @@ xhr.open('POST', url);
 xhr.send(data);  // die gefrage information wird im constante data verpackt und als argument von send() methode yum API gesendet
 
 /*
-$.ajax() is a method provided by the jQuery library
+$.ajax() is a method provided by the jQuery library (non native)
 specifically to handle AJAX requests.
  All parts of the request are included in a single object that is passed to the method as an argument.
 jQuery ist ein libray auch fuer JS requests, jQuery wird heute nicht mehr oft eingesetzt, ist veraltet.
@@ -309,7 +309,7 @@ $.ajax({  //$ ist ein jQuery-Objekt, ajax ist eine Funktion auf dem Objekt.
 $.ajax({
   url: 'http://api-to-call.com/endpoint',  //diese und die 3 weiteren Zeilen sind settings
   type: 'POST',
-  dataType: JSON.stringify({ id: '200'}), //hier ist anders als GET
+  data: JSON.stringify({ id: '200'}), //hier ist anders als GET
   dataType: 'json',
   success(response) {
     console.log(response); // code to execute with response on success
@@ -327,7 +327,7 @@ The second parameter, response => {...} is an arrow function. This is the succes
 The third parameter, 'json', is the response format
 diese Schreibweise erlaubt keine weitere settings, falls mehr dann $.ajax() verwenden.
 */
-$.getJSON() // wie oben aber noch kuerzerer.
+$.getJSON() // wie oben $.get() aber noch kuerzerer.
 
 //AXAJ request with $.post()
 $.post('https://api-to-call.com/endpoint', {data}, response => {...}, 'json');
@@ -344,14 +344,30 @@ feste Order von Parameter.
 // fetch() function uses Primises to handle request. .then() method handle fullfiled and rejected Promises. async and await keywords.
 
 //fetch GET, fetch() function; this is a web API not all browsers support it. in that case add a polyfill
+//fetch is besser als jQuery, da fetch bild-in im Browser ist (native)
 fetch('https://api-to-call.com/endpoint').then(response => {  // sends request
+  if (response.ok) {               // diese und die 2 weiteren Zeilen converts response object to JSON
+    return response.json();
+  }
+  throw new Error('Request failed!'); // diese und naechste Zeile handles errors
+}, networkError => console.log(networkError.message))
+.then(jsonRespnse => {               // diese und 2 weitere Zeile handles success
+  //Code to execute with jsonResponse
+});
+// we call the response function when it has been received.
+// ).then() ist callback
+// Aufbau: fetch() chained by .then() method which takes two callback functions as arguments (one for success, one for failure) and an additional .then() method that returns a JSON abject from the resolved Promise.
+
+//fetch POST
+fetch('https://api-to-call.com/endpoint', { // diese und die naechten 2 Zeilen sends request
+  method: 'POST',                           // diese und naechste Zeile ist settings
+  body: JSON.stringify({ id: '200'})        // here is the data passing to the API
+}).then(response => {
   if (response.ok) {               // diese und die 2 weiteren Zeilen converts response object to JSON
     return response.json();
   }
   throw new Error('Request failed!'); // diese und naechste Zeile handles errors
 }, networkError => console.log(networkError.message)
 ).then(jsonRespnse => {               // diese und 2 weitere Zeile handles success
-  //Code to execute with jsonResonse
+//Code to execute with jsonResponse
 });
-// we call the response function when it has been received.
-// ).then() ist callback
