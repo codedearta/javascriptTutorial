@@ -253,28 +253,105 @@ import * as Carte from './menu';
 export let specialty = ''; // wird exportiert sobald die Variable definiert ist. Mehrere export in einem file möglich
 import { specialty} from './menu'; // wie oben
 
-//XHR GET Requests (coilerplate code)
+
+// HTTP Request (webrequest), AJAX (technologie fuer schnelles laden), XHR (webrequest mit JS, =XMLHttpRequest)
+//XHR GET Requests (boilerplate code) GET ladet Daten; 4 types of HTTP requests: GET, POST, PUT, DELETE
 const xhr = new XMLHttpRequest(); // new operator bzw. new object, write 'new' for new object and then the type (not the naming), naming xhr is common practise
-const url = 'http://api-to-call-com/endpoint'; // URL to which we are going to make our request
+const url = 'http://api-to-call-com/endpoint'; // URL to which we are going to make our request and save it in the constante named url
 xhr.responseType = 'json'; // access the properties of the const xhr object and set the response type, can be another as well
-xhr.onreadystatechange = function() {    // event handler
+xhr.onreadystatechange = function() {    // event handler, wird aktiviert wenn value von readyState veraendert
   if (xhr.readyState === XMLHttpRequest.DONE) {
     console.log(xhr.response);
   }
 };
 xhr.open('GET', url);  // opens request by calling the method .open() and pass two parameter - type of request and url to querying.
-xhr.send();          // sends object
+xhr.send();          // calling the send methode / sends object
+// in GET request the query information (what youre asking the server) si sent as part of the URL, in diesem Beispiel ist nichts drin.
 
-// POST
+
+// POST (ladet Daten und speichert Daten, can change information on another site and receive information in response)
 const xhr = new XMLHttpRequest();
 const url = 'http://api-to-call.com/endpoint';
-const data = JSON.stringify({ id: '200'});  // concerts data to a string
+const data = JSON.stringify({ id: '200'});
+// converts data to a string, the query information is not part of the URL sent, hier ist die angefragte info mitsamt der erforderliche format (depends on the API)
 
 xhr.responseType = 'json';
-xhr.onreadystatechange = function() {           //handles response
+xhr.onreadystatechange = function() {
   if (xhr.readyState === XMLHttpRequest.DONE) {
-    console.log(xhr.response);
+    console.log(xhr.response);  // code to execute with response
   }
 };
 xhr.open('POST', url);
-xhr.send(data);
+xhr.send(data);  // die gefrage information wird im constante data verpackt und als argument von send() methode yum API gesendet
+
+/*
+$.ajax() is a method provided by the jQuery library
+specifically to handle AJAX requests.
+ All parts of the request are included in a single object that is passed to the method as an argument.
+jQuery ist ein libray auch fuer JS requests, jQuery wird heute nicht mehr oft eingesetzt, ist veraltet.
+jQuery wird nur fuer kleine Teile verwendet, da heute die apps gross und komplexer ist. heutzutage verwendet man frameworks wie React und angular...
+*/
+
+//jQuery GET
+$.ajax({  //$ ist ein jQuery-Objekt, ajax ist eine Funktion auf dem Objekt.
+  url:'http://api-to-call.com/endpoint',  //diese und die 2 weiteren Zeilen sind settings
+  type: 'GET',
+  dataType: 'json',
+  success(response) {
+    console.log(response); // code to execute with response on success
+  },
+  error(jqXHR, status, errorThrown) {
+    console.log(jqXHR); // Code to execute with response on failure
+  }
+});
+
+//jQuery POST
+$.ajax({
+  url: 'http://api-to-call.com/endpoint',  //diese und die 3 weiteren Zeilen sind settings
+  type: 'POST',
+  dataType: JSON.stringify({ id: '200'}), //hier ist anders als GET
+  dataType: 'json',
+  success(response) {
+    console.log(response); // code to execute with response on success
+  },
+  error(jqXHR, status, errorThrown) {
+    console.log(jqXHR); // Code to execute with response on failure
+  }
+});
+
+//AXAJ request with $.get(), this is another request with jQuery
+$.get('https://api-to-call.com/endpoint', response => {...}, 'json');
+/* $.get( opens the method call.
+'https://api-to-call.com/endpoint' is the URL to which we're making our request.
+The second parameter, response => {...} is an arrow function. This is the success callback function. Between the curly braces, specify what to do with the response if it is successful, such as logging it to the console or appending it to the body of the HTML.
+The third parameter, 'json', is the response format
+diese Schreibweise erlaubt keine weitere settings, falls mehr dann $.ajax() verwenden.
+*/
+$.getJSON() // wie oben aber noch kuerzerer.
+
+//AXAJ request with $.post()
+$.post('https://api-to-call.com/endpoint', {data}, response => {...}, 'json');
+/* $.post( opens the method call.
+'https://api-to-call.com/endpoint' is the URL to which we're making our request.
+The second parameter, {data} is the object you'll use to send data with your request.
+The third parameter, response => {...} is an arrow function. This is the success callback function. Between the curly braces, you would specify what you want to do with the response if it is successful, such as logging it to the console or appending it to the body of the HTML.
+The fourth parameter, 'json', is the response format.
+feste Order von Parameter.
+*/
+
+// ES6
+// Promise is an object, acts as a placeholder for data that has been requested but not yet received.
+// fetch() function uses Primises to handle request. .then() method handle fullfiled and rejected Promises. async and await keywords.
+
+//fetch GET, fetch() function; this is a web API not all browsers support it. in that case add a polyfill
+fetch('https://api-to-call.com/endpoint').then(response => {  // sends request
+  if (response.ok) {               // diese und die 2 weiteren Zeilen converts response object to JSON
+    return response.json();
+  }
+  throw new Error('Request failed!'); // diese und naechste Zeile handles errors
+}, networkError => console.log(networkError.message)
+).then(jsonRespnse => {               // diese und 2 weitere Zeile handles success
+  //Code to execute with jsonResonse
+});
+// we call the response function when it has been received.
+// ).then() ist callback
