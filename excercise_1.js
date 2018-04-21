@@ -228,6 +228,9 @@ const einAndererString = ['H','a','l','l','o'].join(','); //gibt 'H,a,l,l,o' (ni
 
 // sehr wichtige array built in function : .forEach, .map, .filter, .some, .every, .reduce
 
+//*******
+//https://www.codecademy.com/learn/introduction-to-javascript
+
 // IMPOTIEREN UND EXORTIEREN von Module (Modules in JavaScript are reusable pieces of code that can be exported from one program and imported for use in another program)
 let Airplane {
   myAirplane: "StarJet",
@@ -253,7 +256,7 @@ import * as Carte from './menu';
 export let specialty = ''; // wird exportiert sobald die Variable definiert ist. Mehrere export in einem file möglich
 import { specialty} from './menu'; // wie oben
 
-
+//*********************************
 // HTTP Request (webrequest), AJAX (technologie fuer schnelles laden), XHR (webrequest mit JS, =XMLHttpRequest)
 //XHR GET Requests (boilerplate code) GET ladet Daten; 4 types of HTTP requests: GET, POST, PUT, DELETE
 const xhr = new XMLHttpRequest(); // new operator bzw. new object, write 'new' for new object and then the type (not the naming), naming xhr is common practise
@@ -370,7 +373,7 @@ fetch('https://api-to-call.com/endpoint', { // diese und die naechten 2 Zeilen s
   throw new Error('Request failed!'); // diese und naechste Zeile handles errors
 }, networkError => console.log(networkError.message)
 ).then(jsonRespnse => {               // diese und 2 weitere Zeile handles success
-//Code to execute with jsonResponse
+//Code to execute with jsonResponse, kommt hier hin
 });
 
 //async await GET request, async und await is ES7, not supported by all browser, so to transpile the Code
